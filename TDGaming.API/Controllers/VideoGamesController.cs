@@ -36,6 +36,7 @@ public class VideoGamesController : ControllerBase
     public async Task<IActionResult> Get(Guid id)
     {
         var game = await _repo.GetByIdAsync(id);
+
         return game is null ? NotFound() : Ok(game);
     }
 
@@ -43,7 +44,9 @@ public class VideoGamesController : ControllerBase
     public async Task<IActionResult> Create(VideoGameDto dto)
     {
         var game = new VideoGame(dto.Title, dto.Price);
+
         await _repo.AddAsync(game);
+
         return CreatedAtAction(nameof(Get), new { id = game.Id }, game);
     }
 
@@ -51,9 +54,13 @@ public class VideoGamesController : ControllerBase
     public async Task<IActionResult> Update(Guid id, VideoGameDto dto)
     {
         var game = await _repo.GetByIdAsync(id);
+
         if (game is null) return NotFound();
+
         game.Update(dto.Title, dto.Price);
+
         await _repo.UpdateAsync(game);
+
         return NoContent();
     }
 }

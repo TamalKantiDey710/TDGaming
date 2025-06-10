@@ -17,7 +17,7 @@ public class GameRepository : IGameRepository
 
     public async Task<PagedResult<VideoGame>> GetAllAsync(string? Title, int PageNumber, int PageSize)
     {
-        var query =  _context.Games.AsQueryable();
+        var query =  _context.Games.OrderBy(o => o.Title).AsQueryable();
         if (!string.IsNullOrWhiteSpace(Title))
         {
             query = query.Where(v => v.Title.Contains(Title));

@@ -34,6 +34,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseCors("AllowFrontend");
 app.UseCors("AllowReactDev");
 // Configure the HTTP request pipeline.
@@ -44,7 +45,6 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
-
 
 app.MapControllers();
 
