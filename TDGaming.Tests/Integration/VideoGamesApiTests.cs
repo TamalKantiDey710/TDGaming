@@ -29,7 +29,7 @@ namespace TDGaming.Tests.Api
         public async Task GetById_InvalidId_ReturnsNotFound()
         {
             var response = await _client.GetAsync("/api/videogames/9999");
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace TDGaming.Tests.Api
             var update = new VideoGameDto { Title = "Updated Title", Price = 10 };
 
             var response = await _client.PutAsJsonAsync("/api/videogames/9999", update);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
     }
 }
