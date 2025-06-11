@@ -10,4 +10,5 @@ public interface IGameRepository
     Task<VideoGame?> GetByIdAsync(Guid id);
     Task AddAsync(VideoGame game);
     Task UpdateAsync(VideoGame game);
+    Task DeleteAsync(VideoGame game);
 }

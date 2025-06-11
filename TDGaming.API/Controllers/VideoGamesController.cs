@@ -63,4 +63,16 @@ public class VideoGamesController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var game = await _repo.GetByIdAsync(id);
+
+        if (game is null) return NotFound();
+
+        await _repo.DeleteAsync(game);
+
+        return NoContent();
+    }
 }

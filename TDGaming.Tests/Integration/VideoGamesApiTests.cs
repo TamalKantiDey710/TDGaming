@@ -4,16 +4,25 @@ using System.Net.Http.Json;
 using System.Net;
 using TDGaming.Domain.Entities;
 using TDGaming.API.DTO;
+using Microsoft.Extensions.DependencyInjection;
+using TDGaming.Infrastructure.Data;
 
 namespace TDGaming.Tests.Api
 {
-    public class VideoGamesApiTests : IClassFixture<WebApplicationFactory<Program>>
+    public class VideoGamesApiTests : IClassFixture<CustomWebApplicationFactory>
     {
         private readonly HttpClient _client;
-        public VideoGamesApiTests(WebApplicationFactory<Program> factory)
+        public VideoGamesApiTests(CustomWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
+
+            using var scope = factory.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
         }
+
 
         [Fact]
         public async Task GetAll_ReturnsOk()
