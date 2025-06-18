@@ -16,10 +16,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000") 
+        policy.WithOrigins(
+                "http://localhost:3000",
+                "https://tdgaming-client-app-egathjdcawfqg0hg.canadacentral-01.azurewebsites.net")
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowCredentials(); // Optional — only if you use cookies/auth headers
     });
 });
 
